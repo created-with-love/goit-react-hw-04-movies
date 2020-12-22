@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '446a6481bf8395f98e9eabc7892a2c81';
 

@@ -2,6 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import SearchForm from '../components/SearchForm';
 import * as MoviesAPI from '../services/movies-api';
+import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
 export default function MoviesPage() {
   const { url } = useRouteMatch();
@@ -9,7 +19,8 @@ export default function MoviesPage() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
   const isFirstRender = useRef(true);
-  let totalPages = useRef(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const classes = useStyles();
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -19,18 +30,12 @@ export default function MoviesPage() {
 
     MoviesAPI.fetchMoviesBySearch(page, query).then(data => {
       setMovies(data.results);
-      totalPages.current = data.total_pages;
+      setTotalPages(data.total_pages);
     });
   }, [page, query]);
 
-  const handelBtnClick = e => {
-    if (e.currentTarget.name === 'prev' && page > 1) {
-      setPage(state => state - 1);
-    }
-
-    if (e.currentTarget.name === 'next' && page !== totalPages) {
-      setPage(state => state + 1);
-    }
+  const handleChange = (event, value) => {
+    setPage(value);
   };
 
   const handleFormSubmit = input => {
@@ -55,14 +60,9 @@ export default function MoviesPage() {
         })}
       </ul>
       {movies.length > 1 && (
-        <>
-          <button type="button" name="prev" onClick={handelBtnClick}>
-            Previos
-          </button>
-          <button type="button" name="next" onClick={handelBtnClick}>
-            Next
-          </button>
-        </>
+        <div className={classes.root}>
+          <Pagination count={totalPages} page={page} onChange={handleChange} />
+        </div>
       )}
     </div>
   );

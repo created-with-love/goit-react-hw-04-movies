@@ -6,9 +6,22 @@ import image from '../../def-img.jpg';
 
 export default function MovieItem({ movie }) {
   const { poster_path, title, vote_average, overview, genres } = movie;
-  const date = movie.release_date
-    ? movie.release_date.slice(0, 4)
-    : movie.first_air_date.slice(0, 4);
+  const date = getMovieDate(movie);
+
+  function getMovieDate(movie) {
+    let data;
+    if (movie.release_date) {
+      data = movie.release_date.slice(0, 4);
+    }
+
+    if (movie.first_air_date) {
+      data = movie.first_air_date.slice(0, 4);
+    }
+
+    return data;
+  }
+
+  console.log(poster_path);
 
   return (
     <div className="movie-box">
@@ -17,7 +30,7 @@ export default function MovieItem({ movie }) {
           data-src={
             poster_path
               ? 'https://image.tmdb.org/t/p/w300' + poster_path
-              : { image }
+              : image
           }
           alt={title}
           className="lazyload box-image"

@@ -18,7 +18,7 @@ export default function Reviews() {
     <div className="reviews">
       {reviews.length > 1 ? (
         reviews.map(review => (
-          <div>
+          <div key={review.id}>
             <h3>Author: {review.author}</h3>
             <p>{review.content}</p>
           </div>

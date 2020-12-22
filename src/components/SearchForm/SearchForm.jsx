@@ -16,14 +16,17 @@ export default function SearchForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={onFromSubmit}>
+    <form onSubmit={onFromSubmit} className="search-form">
       <input
         type="text"
         value={query}
         name="form-input"
         onChange={handleFromInput}
+        className="form-input"
       />
-      <button type="submit">Search</button>
+      <button type="submit" className="form-btn">
+        Search
+      </button>
     </form>
   );
 }
