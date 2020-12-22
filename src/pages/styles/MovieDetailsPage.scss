@@ -1,0 +1,13 @@
+.movie-link {
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px;
+  font-weight: 500;
+  color: #2a363b;
+  font-size: 18px;
+}
+
+.active-link {
+  composes: movie-link;
+  color: #2196f3;
+}

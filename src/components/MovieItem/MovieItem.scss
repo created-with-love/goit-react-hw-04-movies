@@ -1,0 +1,36 @@
+.image-box {
+  position: relative;
+  height: 450px;
+  width: 300px;
+}
+
+.image-box img {
+  position: absolute;
+  width: 100%;
+  height: auto;
+}
+.movie-box {
+  display: flex;
+  margin-top: 10px;
+}
+
+.description {
+  margin-left: 10px;
+  width: 400px;
+
+  > li {
+    list-style: none;
+  }
+}
+
+// @media screen and (min-width: 650px) {
+//     .movie-box {
+//     }
+// }
+
+@media screen and (max-width: 649px) {
+  .movie-box {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

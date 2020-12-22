@@ -37,22 +37,27 @@ export default function HomePage() {
     }
   };
 
-  console.log(movies);
   return (
     <div>
       <ul>
-        {movies.map(movie => (
-          <li key={movie.id}>
-            <Link to={`movies/${movie.id}`}>{movie.title}</Link>
-          </li>
-        ))}
+        {movies.map(movie => {
+          const movieName = movie.title ? movie.title : movie.name;
+          return (
+            <li key={movie.id}>
+              <Link to={`${movie.id}`}>{movieName}</Link>
+            </li>
+          );
+        })}
       </ul>
-      <button type="button" name="prev" onClick={handelBtnClick}>
-        Previos
-      </button>
-      <button type="button" name="next" onClick={handelBtnClick}>
-        Next
-      </button>
+
+      <>
+        <button type="button" name="prev" onClick={handelBtnClick}>
+          Previos
+        </button>
+        <button type="button" name="next" onClick={handelBtnClick}>
+          Next
+        </button>
+      </>
     </div>
   );
 }

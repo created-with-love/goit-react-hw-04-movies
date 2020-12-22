@@ -24,6 +24,10 @@ function App() {
           <MovieDetailsPage />
         </Route>
 
+        <Route path="/:movieId">
+          <MovieDetailsPage />
+        </Route>
+
         <Route>
           <HomePage />
         </Route>

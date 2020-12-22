@@ -2,8 +2,6 @@ import axios from 'axios';
 
 export const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '446a6481bf8395f98e9eabc7892a2c81';
-// const API_v4_KEY =
-//   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0NDZhNjQ4MWJmODM5NWY5OGU5ZWFiYzc4OTJhMmM4MSIsInN1YiI6IjVmZTBlZjYyYTBiNjkwMDA0MWEzNmUzMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.d9s1fbAXkrKy6SCuFtas-nunDBgsUpGTj-8G2EECA7s';
 
 async function fetchWithErrorhandling(url = '', config = {}) {
   const response = await fetch(url, config);

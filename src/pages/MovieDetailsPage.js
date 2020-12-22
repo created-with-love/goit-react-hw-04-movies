@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Route, useParams, useRouteMatch } from 'react-router-dom';
+import { Route, useParams, useRouteMatch, NavLink } from 'react-router-dom';
+
 import Cast from './Cast';
 import Reviews from './Reviews';
 import * as MoviesAPI from '../services/movies-api';
+import MovieItem from '../components/MovieItem';
+import './styles/MovieDetailsPage.scss';
 
 export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
@@ -17,44 +20,42 @@ export default function MovieDetailsPage() {
     };
   }, [movieId]);
 
-  console.log(movie);
+  function goBack() {
+    window.history.back();
+  }
 
   return (
     <>
       {movie && (
-        <div className="movie-box">
-          <img
-            src={'https://image.tmdb.org/t/p/w300' + movie.poster_path}
-            alt={movie.title}
-          />
-          <ul>
-            <li>
-              <h2>{movie.title}</h2>
-            </li>
-            <li>
-              <p>IMDB rating: {movie.vote_average}</p>
-            </li>
-            <li>
-              <h3>Overview</h3>
-              <p>{movie.overview}</p>
-            </li>
-            <li>
-              <h3>Genres</h3>
-              <ul>
-                {movie.genres.map((genre, index) => (
-                  <li key={index}>{genre.name}</li>
-                ))}
-              </ul>
-            </li>
-          </ul>
-        </div>
+        <>
+          <button type="button" onClick={goBack}>
+            Back
+          </button>
+
+          <MovieItem movie={movie} />
+        </>
       )}
 
-      <Route path={`${path}/${movieId}/cast`} exact>
+      <NavLink
+        to={`${url}/cast`}
+        className="movie-link"
+        activeClassName="active-link"
+      >
+        Cast
+      </NavLink>
+      <NavLink
+        to={`${url}/reviews`}
+        className="movie-link"
+        activeClassName="active-link"
+      >
+        Reviews
+      </NavLink>
+
+      <Route path={`${path}/cast`} exact>
         <Cast />
       </Route>
 
-      <Route path={`${path}/${movieId}/reviews`} exact>
+      <Route path={`${path}/reviews`} exact>
         <Reviews />
       </Route>
     </>
