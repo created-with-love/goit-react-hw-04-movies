@@ -11,3 +11,48 @@
   composes: movie-link;
   color: #2196f3;
 }
+
+.details-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-box {
+  display: inline-flex;
+  width: 100%;
+  justify-content: start;
+  margin-left: 25px;
+  margin-bottom: 5px;
+}
+
+.back-btn {
+  text-decoration: none;
+  display: inline-block;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background-image: linear-gradient(
+    to right,
+    #9eefe1 0%,
+    #4830f0 51%,
+    #9eefe1 100%
+  );
+  background-size: 200% auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: 0.5s;
+
+  &:hover {
+    cursor: pointer;
+    background-image: linear-gradient(
+      to right,
+      #6af0d9 0%,
+      #321ac8 51%,
+      #56ad9f 100%
+    );
+    transform: scale(1.1);
+  }
+}

@@ -1,21 +1,42 @@
 .search-form {
+  display: flex;
+  justify-content: center;
+
   padding: 15px;
 
   .form-input {
     padding: 5px;
     margin-right: 5px;
+    width: 250px;
   }
   .form-btn {
-    padding: 5px;
-    transition: all 250ms ease;
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-image: linear-gradient(
+      to right,
+      #9eefe1 0%,
+      #4830f0 51%,
+      #9eefe1 100%
+    );
+    background-size: 200% auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    transition: 0.5s;
 
     &:hover {
       cursor: pointer;
-      background-color: #2196f3;
-      border-radius: 3px;
-      outline: none;
-      color: rgb(236, 233, 233);
-      transform: scale(1.1);
+      background-image: linear-gradient(
+        to right,
+        #6af0d9 0%,
+        #321ac8 51%,
+        #56ad9f 100%
+      );
+      transform: scale(1.03);
     }
   }
 }

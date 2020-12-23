@@ -1,8 +1,8 @@
 .cast {
   display: grid;
 
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 2vw;
 
   .actor:nth-of-type(2n) {
@@ -13,6 +13,7 @@
 .actor {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   border: 1px solid black;
   border-radius: 3px;
@@ -29,6 +30,23 @@
     text-align: center;
     width: 100%;
     margin: 3px;
+  }
+
+  p {
+    font-weight: 500;
+  }
+
+  .no-info {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 870px) {
+  .cast {
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2vw;
   }
 }
 

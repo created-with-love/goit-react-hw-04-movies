@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import SearchForm from '../components/SearchForm';
 import * as MoviesAPI from '../services/movies-api';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import MoviesList from '../components/MoviesList';
+import './styles/Pagination.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MoviesPage() {
-  const { url } = useRouteMatch();
+  // const { url } = useRouteMatch();
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
@@ -25,7 +27,7 @@ export default function MoviesPage() {
   const classes = useStyles();
 
   const searchURL = new URLSearchParams(location.search).get('query') ?? '';
-
+  console.log(movies);
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -44,11 +46,11 @@ export default function MoviesPage() {
     }
 
     setQuery(searchURL);
-    console.log(searchURL);
   }, [searchURL]);
 
   const handleChange = (event, value) => {
     setPage(value);
+    location.state = { page: value };
   };
 
   const handleFormSubmit = input => {
@@ -63,16 +65,8 @@ export default function MoviesPage() {
   return (
     <div>
       <SearchForm onSubmit={handleFormSubmit} />
-      <ul>
-        {movies.map(movie => {
-          const movieName = movie.title ? movie.title : movie.name;
-          return (
-            <li key={movie.id}>
-              <Link to={`movies/${movie.id}`}>{movieName}</Link>
-            </li>
-          );
-        })}
-      </ul>
+      <MoviesList movies={movies} url="movies/" />
+
       {movies.length > 1 && (
         <div className={classes.root}>
           <Pagination count={totalPages} page={page} onChange={handleChange} />

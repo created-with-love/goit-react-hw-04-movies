@@ -18,19 +18,25 @@ export default function Cast() {
   }, [movieId]);
 
   return (
-    <div className="cast">
-      {cast.map(actor => (
-        <div key={actor.id} className="actor">
-          <div className="image-container">
-            <img
-              src={'https://image.tmdb.org/t/p/w300' + actor.profile_path}
-              alt={actor.name}
-            />
-          </div>
-          <h3>{actor.name}</h3>
-          <span>Character: {actor.character}</span>
+    <>
+      {cast.length > 1 ? (
+        <div className="cast">
+          {cast.map(actor => (
+            <div key={actor.id} className="actor">
+              <div className="image-container">
+                <img
+                  src={'https://image.tmdb.org/t/p/w300' + actor.profile_path}
+                  alt={actor.name}
+                />
+              </div>
+              <p>{actor.name}</p>
+              <span>Character: {actor.character}</span>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      ) : (
+        <p className="no-info">There are no info about cast</p>
+      )}
+    </>
   );
 }

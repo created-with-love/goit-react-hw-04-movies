@@ -33,36 +33,36 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <>
-          <button type="button" onClick={goBack}>
-            Back
-          </button>
-
+          <div className="button-box">
+            <button type="button" onClick={goBack} className="back-btn">
+              Go back
+            </button>
+          </div>
           <MovieItem movie={movie} />
         </>
       )}
-
-      <NavLink
-        to={`${url}/cast`}
-        className="movie-link"
-        activeClassName="active-link"
-      >
-        Cast
-      </NavLink>
-      <NavLink
-        to={`${url}/reviews`}
-        className="movie-link"
-        activeClassName="active-link"
-      >
-        Reviews
-      </NavLink>
+      <div className="details-box">
+        <NavLink
+          to={`${url}/cast`}
+          className="movie-link"
+          activeClassName="active-link"
+        >
+          Cast
+        </NavLink>
+        <NavLink
+          to={`${url}/reviews`}
+          className="movie-link"
+          activeClassName="active-link"
+        >
+          Reviews
+        </NavLink>
+      </div>
 
       <Suspense fallback={<Spinner />}>
         <Route path={`${path}/cast`} exact>
           <Cast />
         </Route>
-      </Suspense>
 
-      <Suspense fallback={<Spinner />}>
         <Route path={`${path}/reviews`} exact>
           <Reviews />
         </Route>

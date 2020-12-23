@@ -3,6 +3,8 @@ import { useRouteMatch, Link } from 'react-router-dom';
 import * as MoviesAPI from '../services/movies-api';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import MoviesList from '../components/MoviesList';
+import './styles/Pagination.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,22 +48,11 @@ export default function HomePage() {
 
   return (
     <div>
-      <ul>
-        {movies.map(movie => {
-          const movieName = movie.title ? movie.title : movie.name;
-          return (
-            <li key={movie.id}>
-              <Link to={`${movie.id}`}>{movieName}</Link>
-            </li>
-          );
-        })}
-      </ul>
+      <MoviesList movies={movies} url="" />
 
-      <>
-        <div className={classes.root}>
-          <Pagination count={totalPages} page={page} onChange={handleChange} />
-        </div>
-      </>
+      <div className={classes.root}>
+        <Pagination count={totalPages} page={page} onChange={handleChange} />
+      </div>
     </div>
   );
 }

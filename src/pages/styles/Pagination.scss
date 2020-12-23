@@ -1,0 +1,29 @@
+.MuiPagination-root {
+  margin: 15px;
+}
+
+.MuiPagination-ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+  .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-page {
+    font-size: 14px;
+    min-width: 30px;
+    height: 30px;
+    margin: 0 2px;
+    padding: 0 5px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-page {
+    font-size: 10px;
+    min-width: 20px;
+    height: 20px;
+    margin: 0 2px;
+  }
+}
