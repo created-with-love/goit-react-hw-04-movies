@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import SearchForm from '../components/SearchForm';
 import * as MoviesAPI from '../services/movies-api';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +20,11 @@ export default function MoviesPage() {
   const [query, setQuery] = useState('');
   const isFirstRender = useRef(true);
   const [totalPages, setTotalPages] = useState(0);
+  const history = useHistory();
+  const location = useLocation();
   const classes = useStyles();
+
+  const searchURL = new URLSearchParams(location.search).get('query') ?? '';
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -34,6 +38,15 @@ export default function MoviesPage() {
     });
   }, [page, query]);
 
+  useEffect(() => {
+    if (searchURL === '') {
+      return;
+    }
+
+    setQuery(searchURL);
+    console.log(searchURL);
+  }, [searchURL]);
+
   const handleChange = (event, value) => {
     setPage(value);
   };
@@ -44,6 +57,7 @@ export default function MoviesPage() {
     }
 
     setQuery(input);
+    history.push({ ...location, search: `query=${input}` });
   };
 
   return (

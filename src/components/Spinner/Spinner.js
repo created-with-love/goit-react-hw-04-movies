@@ -1,14 +1,20 @@
-import * as basicLightbox from 'basiclightbox';
+import Loader from 'react-loader-spinner';
+import React from 'react';
+import './Spinner.scss';
 
-const markup = `<div class="sk-chase">
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
-    <div class="sk-chase-dot"></div>
-  </div>`;
-
-const spinner = basicLightbox.create(markup);
-
-export default spinner;
+export default class App extends React.Component {
+  //other logic
+  render() {
+    return (
+      <div className="loader-box">
+        <Loader
+          type="Oval"
+          color="rgba(0, 0, 0, .4)"
+          height={100}
+          width={100}
+          timeout={12000} //3 secs
+        />
+      </div>
+    );
+  }
+}

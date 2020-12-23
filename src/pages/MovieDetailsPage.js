@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { Route, useParams, useRouteMatch, NavLink } from 'react-router-dom';
 
-import Cast from './Cast';
-import Reviews from './Reviews';
 import * as MoviesAPI from '../services/movies-api';
 import MovieItem from '../components/MovieItem';
+import Spinner from '../components/Spinner/Spinner';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './styles/MovieDetailsPage.scss';
+
+const Cast = lazy(() => import('./Cast' /* webpackChunkName: "cast-subview"*/));
+const Reviews = lazy(() =>
+  import('./Reviews' /* webpackChunkName: "reviews-subview"*/),
+);
 
 export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
@@ -51,13 +56,17 @@ export default function MovieDetailsPage() {
         Reviews
       </NavLink>
 
-      <Route path={`${path}/cast`} exact>
-        <Cast />
-      </Route>
+      <Suspense fallback={<Spinner />}>
+        <Route path={`${path}/cast`} exact>
+          <Cast />
+        </Route>
+      </Suspense>
 
-      <Route path={`${path}/reviews`} exact>
-        <Reviews />
-      </Route>
+      <Suspense fallback={<Spinner />}>
+        <Route path={`${path}/reviews`} exact>
+          <Reviews />
+        </Route>
+      </Suspense>
     </>
   );
 }
