@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import SearchForm from '../components/SearchForm';
 import * as MoviesAPI from '../services/movies-api';
 import PaginationList from '../components/PaginationList';
-import Spinner from '../components/Spinner/Spinner';
+import Preloader from '../components/Preloader';
 
 const MoviesList = lazy(() =>
   import('../components/MoviesList' /* webpackChunkName: "movies-list"*/),
@@ -11,16 +11,17 @@ const MoviesList = lazy(() =>
 
 export default function MoviesPage() {
   // const { url } = useRouteMatch();
+  const history = useHistory();
+  const location = useLocation();
+  const searchURL = new URLSearchParams(location.search).get('query') ?? '';
+  const currentPage = new URLSearchParams(location.search).get('page') ?? 1;
+
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(currentPage);
   const [query, setQuery] = useState('');
   const isFirstRender = useRef(true);
   const [totalPages, setTotalPages] = useState(0);
-  const history = useHistory();
-  const location = useLocation();
 
-  const searchURL = new URLSearchParams(location.search).get('query') ?? '';
-  console.log(movies);
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
@@ -41,9 +42,17 @@ export default function MoviesPage() {
     setQuery(searchURL);
   }, [searchURL]);
 
+  const setHistory = (query, value = 1) => {
+    history.push({ ...location, search: `query=${query}&page=${value}` });
+  };
+
   const handleChange = (event, value) => {
     setPage(value);
-    location.state = { page: value };
+    setHistory(query, value);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   const handleFormSubmit = input => {
@@ -52,23 +61,20 @@ export default function MoviesPage() {
     }
 
     setQuery(input);
-
-    history.push({ ...location, search: `query=${input}` });
+    setHistory(input);
   };
-
-  //     history.push({ ...location, search: `query=${input}?page=${page}` });
 
   return (
     <div>
       <SearchForm onSubmit={handleFormSubmit} />
 
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Preloader />}>
         <MoviesList movies={movies} url="movies/" />
 
         <PaginationList
           movies={movies}
           totalPages={totalPages}
-          page={page}
+          page={Number(page)}
           handleChange={handleChange}
         />
       </Suspense>

@@ -10,17 +10,27 @@ export default function MoviesList({ movies, url }) {
     <>
       <ul className="movies">
         {movies.map(movie => {
-          const movieName = movie.title ? movie.title : movie.name;
+          let movieName = movie.title ? movie.title : movie.name;
+          if (movieName.length > 60) {
+            movieName = movieName.slice(0, 60) + '...';
+          }
           const imageUrl = movie.poster_path
             ? 'https://image.tmdb.org/t/p/w300' + movie.poster_path
             : image;
 
           return (
             <li key={movie.id} className="movie-item">
-              <Link to={`${url}${movie.id}`} className="movie-link">
-                <img data-src={imageUrl} alt={movieName} className="lazyload" />
-                <p className="movie-name">{movieName}</p>
-              </Link>
+              <div className="img-box">
+                <Link to={`${url}${movie.id}`} className="movie-link">
+                  <img
+                    data-src={imageUrl}
+                    alt={movieName}
+                    className="lazyload movie-image"
+                  />
+
+                  <p className="movie-name">{movieName}</p>
+                </Link>
+              </div>
             </li>
           );
         })}

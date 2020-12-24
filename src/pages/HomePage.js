@@ -1,34 +1,31 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import * as MoviesAPI from '../services/movies-api';
 import PaginationList from '../components/PaginationList';
 import MoviesList from '../components/MoviesList';
 import Preloader from '../components/Preloader';
-import Status from '../services/Status';
+import STATUS from '../services/Status';
+import NotFound from '../components/NotFound';
 
 export default function HomePage() {
+  const history = useHistory();
+  const location = useLocation();
+  const page = new URLSearchParams(location.search).get('page') ?? 1;
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [status, setStatus] = useState(Status.idle);
-  const isFirstRender = useRef(true);
+  const [status, setStatus] = useState(STATUS.idle);
 
   useEffect(() => {
-    MoviesAPI.fetchTrendingMovies().then(data => {
-      setMovies(data.results);
-      setTotalPages(data.total_pages);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
+    try {
+      MoviesAPI.fetchTrendingMoviesByPage(page).then(data => {
+        setStatus(STATUS.pending);
+        setMovies(data.results);
+        setTotalPages(data.total_pages);
+        setStatus(STATUS.fulfilled);
+      });
+    } catch {
+      setStatus(STATUS.rejected);
     }
-
-    MoviesAPI.fetchTrendingMoviesByPage(page).then(data => {
-      setMovies(data.results);
-      setTotalPages(data.total_pages);
-    });
   }, [page]);
 
   const handleChange = (event, value) => {
@@ -37,20 +34,41 @@ export default function HomePage() {
       behavior: 'smooth',
     };
 
-    setPage(value);
+    // setPage(value);
     window.scrollTo(options);
+    history.push({ ...location, search: `page=${value}` });
   };
 
-  return (
-    <div>
-      <MoviesList movies={movies} url="" />
+  if (status === STATUS.pending) {
+    return (
+      <>
+        <Preloader />
+      </>
+    );
+  }
 
-      <PaginationList
-        movies={movies}
-        totalPages={totalPages}
-        page={page}
-        handleChange={handleChange}
-      />
-    </div>
-  );
+  if (status === STATUS.fulfilled) {
+    return (
+      <div>
+        <MoviesList movies={movies} url="" />
+
+        <PaginationList
+          movies={movies}
+          totalPages={totalPages}
+          page={Number(page)}
+          handleChange={handleChange}
+        />
+      </div>
+    );
+  }
+
+  if (status === STATUS.rejected) {
+    return (
+      <>
+        <NotFound text={'Nothing was found, please try again'} />
+      </>
+    );
+  }
+
+  return <></>;
 }

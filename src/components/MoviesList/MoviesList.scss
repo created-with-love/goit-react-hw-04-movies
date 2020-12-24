@@ -15,6 +15,10 @@
   }
 }
 
+.img-box {
+  width: 100%;
+}
+
 @media screen and (max-width: 870px) {
   .movies {
     grid-template-rows: 1fr 1fr 1fr;
@@ -36,6 +40,8 @@
 }
 
 .movie-item {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 14px 28px,
+    rgba(0, 0, 0, 0.12) 0px 10px 10px;
   transition: all 250ms ease-in;
   &:hover {
     transform: scale(1.03);
@@ -51,4 +57,10 @@
   font-weight: 500;
   font-size: 16px;
   margin-top: 3px;
+}
+
+.movie-image {
+  display: block;
+  width: 100%;
+  height: auto;
 }

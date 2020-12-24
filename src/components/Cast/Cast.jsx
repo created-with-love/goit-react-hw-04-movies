@@ -13,6 +13,7 @@ export default function Cast({ cast }) {
                 <img
                   src={'https://image.tmdb.org/t/p/w300' + actor.profile_path}
                   alt={actor.name}
+                  className="cast-image"
                 />
               </div>
               <p>{actor.name}</p>

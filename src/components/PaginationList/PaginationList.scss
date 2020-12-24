@@ -9,21 +9,13 @@
   text-align: center;
 }
 
-// .MuiPaginationItem-root.MuiPaginationItem-ellipsis {
-// background-color: #fff;
-// }
-
-// .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-page {
-//     background-color: #fff;
-// }
-
 @media screen and (max-width: 400px) {
   .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-page {
     font-size: 12px;
-    min-width: 26px;
-    height: 26px;
+    min-width: 24px;
+    height: 24px;
     margin: 0 2px;
-    padding: 0 5px;
+    padding: 0 4px;
   }
 }
 
