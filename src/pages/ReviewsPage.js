@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as MoviesAPI from '../services/movies-api';
-import './styles/Reviews.scss';
+import Reviews from '../components/Reviews';
 
-export default function Reviews() {
+export default function ReviewsPage() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
@@ -14,18 +14,5 @@ export default function Reviews() {
     };
   }, [movieId]);
 
-  return (
-    <div className="reviews">
-      {reviews.length > 1 ? (
-        reviews.map(review => (
-          <div key={review.id}>
-            <h3>Author: {review.author}</h3>
-            <p>{review.content}</p>
-          </div>
-        ))
-      ) : (
-        <p>There are no reviews about this movie.</p>
-      )}
-    </div>
-  );
+  return <Reviews reviews={reviews} />;
 }

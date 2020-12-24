@@ -20,32 +20,34 @@ const MovieDetailsPage = lazy(() =>
 
 function App() {
   return (
-    <Container>
+    <>
       <Appbar />
-      <Suspense fallback={<Preloader />}>
-        <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
+      <Container>
+        <Suspense fallback={<Preloader />}>
+          <Switch>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
 
-          <Route path="/movies" exact>
-            <MoviesPage />
-          </Route>
+            <Route path="/movies" exact>
+              <MoviesPage />
+            </Route>
 
-          <Route path="/movies/:movieId">
-            <MovieDetailsPage />
-          </Route>
+            <Route path="/movies/:movieId">
+              <MovieDetailsPage />
+            </Route>
 
-          <Route path="/:movieId">
-            <MovieDetailsPage />
-          </Route>
+            <Route path="/:movieId">
+              <MovieDetailsPage />
+            </Route>
 
-          <Route>
-            <HomePage />
-          </Route>
-        </Switch>
-      </Suspense>
-    </Container>
+            <Route>
+              <HomePage />
+            </Route>
+          </Switch>
+        </Suspense>
+      </Container>
+    </>
   );
 }
 

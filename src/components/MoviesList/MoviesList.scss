@@ -1,15 +1,15 @@
 .movies {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 2vw;
-  margin: 0;
+  max-width: calc(100vw - 48px);
+  // grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 20px;
+  margin: 0 auto;
   padding: 0;
 
   li {
     display: flex;
     justify-content: center;
-    align-items: center;
     text-align: center;
     list-style: none;
   }
@@ -29,4 +29,26 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 2vw;
   }
+}
+
+.movie-link {
+  text-decoration: none;
+}
+
+.movie-item {
+  transition: all 250ms ease-in;
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  &:hover .movie-name {
+    color: #2196f3;
+  }
+}
+
+.movie-name {
+  color: #2a363b;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 3px;
 }

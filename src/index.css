@@ -17,3 +17,7 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+#root {
+  background-color: rgba(29, 29, 29, 0.123);
+}

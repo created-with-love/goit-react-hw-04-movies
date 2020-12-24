@@ -7,9 +7,11 @@ import Spinner from '../components/Spinner/Spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './styles/MovieDetailsPage.scss';
 
-const Cast = lazy(() => import('./Cast' /* webpackChunkName: "cast-subview"*/));
+const CastView = lazy(() =>
+  import('./CastPage' /* webpackChunkName: "cast-subview"*/),
+);
 const Reviews = lazy(() =>
-  import('./Reviews' /* webpackChunkName: "reviews-subview"*/),
+  import('./ReviewsPage' /* webpackChunkName: "reviews-subview"*/),
 );
 
 export default function MovieDetailsPage() {
@@ -60,7 +62,7 @@ export default function MovieDetailsPage() {
 
       <Suspense fallback={<Spinner />}>
         <Route path={`${path}/cast`} exact>
-          <Cast />
+          <CastView />
         </Route>
 
         <Route path={`${path}/reviews`} exact>

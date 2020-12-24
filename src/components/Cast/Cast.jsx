@@ -1,22 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import * as MoviesAPI from '../services/movies-api';
-import './styles/Cast.scss';
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import './Cast.scss';
 
-export default function Cast() {
-  const [cast, setCast] = useState([]);
-  const { movieId } = useParams();
-
-  useEffect(() => {
-    MoviesAPI.fetchMovieCredits(movieId).then(data => {
-      const filtredData = data.cast.filter(actor => actor.popularity > 4);
-      setCast(filtredData);
-    });
-    return () => {
-      setCast([]);
-    };
-  }, [movieId]);
-
+export default function Cast({ cast }) {
   return (
     <>
       {cast.length > 1 ? (
@@ -40,3 +26,14 @@ export default function Cast() {
     </>
   );
 }
+
+Cast.propTypes = {
+  cast: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string,
+      character: PropTypes.string,
+      profile_path: PropTypes.string,
+    }),
+  ),
+};

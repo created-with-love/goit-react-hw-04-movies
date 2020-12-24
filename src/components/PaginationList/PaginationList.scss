@@ -1,5 +1,5 @@
 .MuiPagination-root {
-  margin: 15px;
+  padding: 20px;
 }
 
 .MuiPagination-ul {
@@ -9,11 +9,19 @@
   text-align: center;
 }
 
+// .MuiPaginationItem-root.MuiPaginationItem-ellipsis {
+// background-color: #fff;
+// }
+
+// .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-page {
+//     background-color: #fff;
+// }
+
 @media screen and (max-width: 400px) {
   .MuiButtonBase-root.MuiPaginationItem-root.MuiPaginationItem-page {
-    font-size: 14px;
-    min-width: 30px;
-    height: 30px;
+    font-size: 12px;
+    min-width: 26px;
+    height: 26px;
     margin: 0 2px;
     padding: 0 5px;
   }

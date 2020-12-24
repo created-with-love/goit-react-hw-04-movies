@@ -19,10 +19,9 @@
 }
 
 .button-box {
-  display: inline-flex;
+  display: flex-start;
   width: 100%;
-  justify-content: start;
-  margin-left: 25px;
+  // margin-left: 25px;
   margin-bottom: 5px;
 }
 
@@ -37,9 +36,9 @@
   letter-spacing: 2px;
   background-image: linear-gradient(
     to right,
-    #9eefe1 0%,
-    #4830f0 51%,
-    #9eefe1 100%
+    #ef9e9e 0%,
+    #950000 51%,
+    #faffb6 100%
   );
   background-size: 200% auto;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -49,8 +48,8 @@
     cursor: pointer;
     background-image: linear-gradient(
       to right,
-      #6af0d9 0%,
-      #321ac8 51%,
+      #ee8860 0%,
+      #a10000 51%,
       #56ad9f 100%
     );
     transform: scale(1.1);

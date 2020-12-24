@@ -4,10 +4,6 @@
   grid-template-rows: 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 2vw;
-
-  .actor:nth-of-type(2n) {
-    background-color: rgba(206, 204, 204, 0.63);
-  }
 }
 
 .actor {
@@ -17,6 +13,7 @@
   flex-wrap: wrap;
   border: 1px solid black;
   border-radius: 3px;
+  background-color: #fff;
 
   h3 {
     text-align: center;

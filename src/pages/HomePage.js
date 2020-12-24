@@ -1,27 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-import { useRouteMatch, Link } from 'react-router-dom';
 import * as MoviesAPI from '../services/movies-api';
-import { makeStyles } from '@material-ui/core/styles';
-import Pagination from '@material-ui/lab/Pagination';
+import PaginationList from '../components/PaginationList';
 import MoviesList from '../components/MoviesList';
-import './styles/Pagination.scss';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
+import Preloader from '../components/Preloader';
+import Status from '../services/Status';
 
 export default function HomePage() {
-  const { url } = useRouteMatch();
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [status, setStatus] = useState(Status.idle);
   const isFirstRender = useRef(true);
-  // const totalPages = useRef(0);
-  const classes = useStyles();
 
   useEffect(() => {
     MoviesAPI.fetchTrendingMovies().then(data => {
@@ -43,16 +32,25 @@ export default function HomePage() {
   }, [page]);
 
   const handleChange = (event, value) => {
+    const options = {
+      top: 0,
+      behavior: 'smooth',
+    };
+
     setPage(value);
+    window.scrollTo(options);
   };
 
   return (
     <div>
       <MoviesList movies={movies} url="" />
 
-      <div className={classes.root}>
-        <Pagination count={totalPages} page={page} onChange={handleChange} />
-      </div>
+      <PaginationList
+        movies={movies}
+        totalPages={totalPages}
+        page={page}
+        handleChange={handleChange}
+      />
     </div>
   );
 }

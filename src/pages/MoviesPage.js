@@ -1,19 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchForm from '../components/SearchForm';
 import * as MoviesAPI from '../services/movies-api';
-import { makeStyles } from '@material-ui/core/styles';
-import Pagination from '@material-ui/lab/Pagination';
-import MoviesList from '../components/MoviesList';
-import './styles/Pagination.scss';
+import PaginationList from '../components/PaginationList';
+import Spinner from '../components/Spinner/Spinner';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > * + *': {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
+const MoviesList = lazy(() =>
+  import('../components/MoviesList' /* webpackChunkName: "movies-list"*/),
+);
 
 export default function MoviesPage() {
   // const { url } = useRouteMatch();
@@ -24,7 +18,6 @@ export default function MoviesPage() {
   const [totalPages, setTotalPages] = useState(0);
   const history = useHistory();
   const location = useLocation();
-  const classes = useStyles();
 
   const searchURL = new URLSearchParams(location.search).get('query') ?? '';
   console.log(movies);
@@ -59,19 +52,26 @@ export default function MoviesPage() {
     }
 
     setQuery(input);
+
     history.push({ ...location, search: `query=${input}` });
   };
+
+  //     history.push({ ...location, search: `query=${input}?page=${page}` });
 
   return (
     <div>
       <SearchForm onSubmit={handleFormSubmit} />
-      <MoviesList movies={movies} url="movies/" />
 
-      {movies.length > 1 && (
-        <div className={classes.root}>
-          <Pagination count={totalPages} page={page} onChange={handleChange} />
-        </div>
-      )}
+      <Suspense fallback={<Spinner />}>
+        <MoviesList movies={movies} url="movies/" />
+
+        <PaginationList
+          movies={movies}
+          totalPages={totalPages}
+          page={page}
+          handleChange={handleChange}
+        />
+      </Suspense>
     </div>
   );
 }
