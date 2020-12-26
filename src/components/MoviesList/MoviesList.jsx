@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import './MoviesList.scss';
-import image from '../../def-img.jpg';
+import image from '../../images/def-img.jpg';
 
 export default function MoviesList({ movies, url }) {
   const location = useLocation();
@@ -17,7 +17,7 @@ export default function MoviesList({ movies, url }) {
             movieName = movieName.slice(0, 60) + '...';
           }
           const imageUrl = movie.poster_path
-            ? 'https://image.tmdb.org/t/p/w300' + movie.poster_path
+            ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path
             : image;
 
           return (

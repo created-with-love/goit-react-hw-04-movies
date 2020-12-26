@@ -14,7 +14,10 @@ import Spinner from '../components/Spinner/Spinner';
 import Modal from '../components/Modal';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './styles/MovieDetailsPage.scss';
-import Trailer from '../components/Trailer';
+
+const Trailer = lazy(() =>
+  import('../components/Trailer' /* webpackChunkName: "trailer"*/),
+);
 
 const CastView = lazy(() =>
   import('./CastPage' /* webpackChunkName: "cast-subview"*/),
@@ -75,7 +78,9 @@ export default function MovieDetailsPage() {
 
       {modal && (
         <Modal onClose={toggleModal}>
-          <Trailer id={movieId} />
+          <Suspense fallback={<Spinner />}>
+            <Trailer id={movieId} />
+          </Suspense>
         </Modal>
       )}
 

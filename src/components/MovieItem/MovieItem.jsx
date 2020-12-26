@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import './MovieItem.scss';
-import image from '../../def-img.jpg';
+import image from '../../images/def-img.jpg';
 
 export default function MovieItem({ movie }) {
   const { poster_path, title, vote_average, overview, genres } = movie;
@@ -47,7 +47,7 @@ export default function MovieItem({ movie }) {
         </li>
         <li>
           <h3>Overview :</h3>
-          <p>{overview}</p>
+          <p className="overview">{overview}</p>
         </li>
         <li>
           <h3>Genres :</h3>

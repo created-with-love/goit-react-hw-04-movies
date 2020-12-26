@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
 import './Modal.scss';
 import IconButton from '../IconButton';
-import { ReactComponent as CloseIcon } from '../../close.svg';
+import { ReactComponent as CloseIcon } from '../../images/close.svg';
 
 const modalRoot = document.querySelector('#modal-root');
 

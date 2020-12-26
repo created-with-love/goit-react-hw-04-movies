@@ -20,13 +20,17 @@
 
   > li {
     list-style: none;
+    font-family: 'Roboto', sans-serif;
+    text-align: justify;
+    text-indent: 20px;
   }
 }
 
-// @media screen and (min-width: 650px) {
-//     .movie-box {
-//     }
-// }
+.overview {
+  font-family: 'Roboto', sans-serif;
+  text-align: justify;
+  text-indent: 20px;
+}
 
 @media screen and (max-width: 649px) {
   .movie-box {

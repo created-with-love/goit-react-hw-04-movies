@@ -44,11 +44,16 @@
   p {
     font-weight: 500;
   }
+}
 
-  .no-info {
-    display: block;
-    width: 100%;
-  }
+.no-info {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 0 0;
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid rgb(105, 103, 103);
 }
 
 @media screen and (max-width: 870px) {

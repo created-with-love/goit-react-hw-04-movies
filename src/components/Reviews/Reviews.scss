@@ -7,11 +7,26 @@
 
   div {
     max-width: 100%;
+    width: 100%;
     padding: 10px;
     margin: 0 10px 0 10px;
+
+    p {
+      font-family: 'Roboto', sans-serif;
+      text-align: justify;
+      text-indent: 20px;
+    }
   }
 
   div:nth-of-type(2n) {
     background-color: rgb(223, 223, 223);
   }
+}
+.no-info2 {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 0 0;
+  padding: 20px;
+  text-align: center;
 }

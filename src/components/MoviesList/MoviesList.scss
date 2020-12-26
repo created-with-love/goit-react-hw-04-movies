@@ -15,8 +15,23 @@
   }
 }
 
+.movie-name {
+  color: #2a363b;
+  font-weight: 500;
+  font-size: 16px;
+  margin-top: 3px;
+}
+
 .img-box {
   width: 100%;
+  position: relative;
+}
+
+.movie-image {
+  // position: absolute;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 @media screen and (max-width: 870px) {
@@ -52,15 +67,8 @@
   }
 }
 
-.movie-name {
-  color: #2a363b;
-  font-weight: 500;
-  font-size: 16px;
-  margin-top: 3px;
-}
-
-.movie-image {
-  display: block;
-  width: 100%;
-  height: auto;
+@media screen and (min-width: 678px) {
+  .img-box {
+    // min-height: 420px;
+  }
 }

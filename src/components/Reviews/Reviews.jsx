@@ -13,7 +13,7 @@ export default function Reviews({ reviews }) {
           </div>
         ))
       ) : (
-        <p>There are no reviews about this movie.</p>
+        <p className="no-info2">There are no reviews about this movie.</p>
       )}
     </div>
   );

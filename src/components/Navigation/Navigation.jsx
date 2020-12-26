@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
-import logo from '../../logo.jpg';
+import logo from '../../images/logo.jpg';
 
 export default function Navigation() {
   return (
