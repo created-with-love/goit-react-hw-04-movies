@@ -1,5 +1,12 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { Route, useParams, useRouteMatch, NavLink } from 'react-router-dom';
+import { useEffect, useState, lazy, Suspense, useRef } from 'react';
+import {
+  Route,
+  useParams,
+  useRouteMatch,
+  NavLink,
+  useLocation,
+  useHistory,
+} from 'react-router-dom';
 
 import * as MoviesAPI from '../services/movies-api';
 import MovieItem from '../components/MovieItem';
@@ -18,6 +25,9 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
   const { url, path } = useRouteMatch();
+  const location = useLocation();
+  const refLocation = useRef(location);
+  const history = useHistory();
 
   useEffect(() => {
     MoviesAPI.fetchMovieDetais(movieId).then(setMovie);
@@ -27,8 +37,12 @@ export default function MovieDetailsPage() {
     };
   }, [movieId]);
 
+  // Запоминаю с useRef локейшн, который был до перехода на карточку фильма,
+  // что бы с помощью кнопки назад сразу вернуться на страницу поиска \ главную
   function goBack() {
-    window.history.back();
+    // window.history.back();
+    const { pathname, search } = refLocation.current.state.from;
+    history.push(search ? pathname + search : pathname);
   }
 
   return (

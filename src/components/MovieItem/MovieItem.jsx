@@ -22,8 +22,6 @@ export default function MovieItem({ movie }) {
     return data;
   }
 
-  console.log(poster_path);
-
   return (
     <div className="movie-box">
       <div className="image-box">

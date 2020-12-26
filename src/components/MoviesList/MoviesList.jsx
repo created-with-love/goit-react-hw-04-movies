@@ -1,11 +1,13 @@
 import { PropTypes } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import './MoviesList.scss';
 import image from '../../def-img.jpg';
 
 export default function MoviesList({ movies, url }) {
+  const location = useLocation();
+
   return (
     <>
       <ul className="movies">
@@ -21,7 +23,15 @@ export default function MoviesList({ movies, url }) {
           return (
             <li key={movie.id} className="movie-item">
               <div className="img-box">
-                <Link to={`${url}${movie.id}`} className="movie-link">
+                <Link
+                  to={{
+                    pathname: `${url}${movie.id}`,
+                    state: {
+                      from: location,
+                    },
+                  }}
+                  className="movie-link"
+                >
                   <img
                     data-src={imageUrl}
                     alt={movieName}
