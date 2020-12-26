@@ -11,8 +11,10 @@ import {
 import * as MoviesAPI from '../services/movies-api';
 import MovieItem from '../components/MovieItem';
 import Spinner from '../components/Spinner/Spinner';
+import Modal from '../components/Modal';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './styles/MovieDetailsPage.scss';
+import Trailer from '../components/Trailer';
 
 const CastView = lazy(() =>
   import('./CastPage' /* webpackChunkName: "cast-subview"*/),
@@ -28,6 +30,7 @@ export default function MovieDetailsPage() {
   const location = useLocation();
   const refLocation = useRef(location);
   const history = useHistory();
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     MoviesAPI.fetchMovieDetais(movieId).then(setMovie);
@@ -45,6 +48,10 @@ export default function MovieDetailsPage() {
     history.push(search ? pathname + search : pathname);
   }
 
+  function toggleModal() {
+    setModal(state => !state);
+  }
+
   return (
     <>
       {movie && (
@@ -53,10 +60,25 @@ export default function MovieDetailsPage() {
             <button type="button" onClick={goBack} className="back-btn">
               Go back
             </button>
+            <button
+              type="button"
+              data-id={movieId}
+              className="trailer-btn"
+              onClick={toggleModal}
+            >
+              Trailer
+            </button>
           </div>
           <MovieItem movie={movie} />
         </>
       )}
+
+      {modal && (
+        <Modal onClose={toggleModal}>
+          <Trailer id={movieId} />
+        </Modal>
+      )}
+
       <div className="details-box">
         <NavLink
           to={`${url}/cast`}

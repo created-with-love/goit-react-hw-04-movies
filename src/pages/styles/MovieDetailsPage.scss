@@ -31,7 +31,7 @@
   margin-bottom: 5px;
 }
 
-.back-btn {
+%btn {
   text-decoration: none;
   display: inline-block;
   color: white;
@@ -60,4 +60,13 @@
     );
     transform: scale(1.1);
   }
+}
+
+.back-btn {
+  @extend %btn;
+}
+
+.trailer-btn {
+  @extend %btn;
+  margin-left: 10px;
 }
