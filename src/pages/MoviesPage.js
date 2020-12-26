@@ -2,11 +2,15 @@ import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchForm from '../components/SearchForm';
 import * as MoviesAPI from '../services/movies-api';
-import PaginationList from '../components/PaginationList';
 import Preloader from '../components/Preloader';
 
 const MoviesList = lazy(() =>
   import('../components/MoviesList' /* webpackChunkName: "movies-list"*/),
+);
+
+const PaginationList = lazy(
+  () =>
+    import('../components/PaginationList') /* webpackChunkName: "pagination"*/,
 );
 
 export default function MoviesPage() {

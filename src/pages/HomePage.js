@@ -1,11 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import * as MoviesAPI from '../services/movies-api';
-import PaginationList from '../components/PaginationList';
-import MoviesList from '../components/MoviesList';
+
 import Preloader from '../components/Preloader';
 import STATUS from '../services/Status';
 import NotFound from '../components/NotFound';
+
+const MoviesList = lazy(() =>
+  import('../components/MoviesList' /* webpackChunkName: "movies-list"*/),
+);
+
+const PaginationList = lazy(
+  () =>
+    import('../components/PaginationList') /* webpackChunkName: "pagination"*/,
+);
 
 export default function HomePage() {
   const history = useHistory();
@@ -50,14 +58,16 @@ export default function HomePage() {
   if (status === STATUS.fulfilled) {
     return (
       <div>
-        <MoviesList movies={movies} url="" />
+        <Suspense fallback={<Preloader />}>
+          <MoviesList movies={movies} url="" />
 
-        <PaginationList
-          movies={movies}
-          totalPages={totalPages}
-          page={Number(page)}
-          handleChange={handleChange}
-        />
+          <PaginationList
+            movies={movies}
+            totalPages={totalPages}
+            page={Number(page)}
+            handleChange={handleChange}
+          />
+        </Suspense>
       </div>
     );
   }

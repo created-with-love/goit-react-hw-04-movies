@@ -22,25 +22,24 @@ export default function MoviesList({ movies, url }) {
 
           return (
             <li key={movie.id} className="movie-item">
-              <div className="img-box">
-                <Link
-                  to={{
-                    pathname: `${url}${movie.id}`,
-                    state: {
-                      from: location,
-                    },
-                  }}
-                  className="movie-link"
-                >
+              <Link
+                to={{
+                  pathname: `${url}${movie.id}`,
+                  state: {
+                    from: location,
+                  },
+                }}
+                className="movie-link"
+              >
+                <div className="img-box">
                   <img
                     data-src={imageUrl}
                     alt={movieName}
                     className="lazyload movie-image"
                   />
-
-                  <p className="movie-name">{movieName}</p>
-                </Link>
-              </div>
+                </div>
+                <p className="movie-name">{movieName}</p>
+              </Link>
             </li>
           );
         })}

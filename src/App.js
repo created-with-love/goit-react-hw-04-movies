@@ -4,6 +4,7 @@ import React, { lazy, Suspense } from 'react';
 import Container from './components/Container';
 import Appbar from './components/Appbar';
 import Preloader from './components/Preloader';
+import './components/website-preloader/preload';
 
 const HomePage = lazy(() =>
   import('./pages/HomePage.js' /* webpackChunkName: "home-page" */),

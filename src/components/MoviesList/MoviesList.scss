@@ -25,29 +25,14 @@
 .img-box {
   width: 100%;
   position: relative;
+  min-height: calc(300px * 1.5);
 }
 
 .movie-image {
   // position: absolute;
   display: block;
-  width: 100%;
+  max-width: 100%;
   height: auto;
-}
-
-@media screen and (max-width: 870px) {
-  .movies {
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 2vw;
-  }
-}
-
-@media screen and (max-width: 670px) {
-  .movies {
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 2vw;
-  }
 }
 
 .movie-link {
@@ -64,11 +49,5 @@
 
   &:hover .movie-name {
     color: #2196f3;
-  }
-}
-
-@media screen and (min-width: 678px) {
-  .img-box {
-    // min-height: 420px;
   }
 }
