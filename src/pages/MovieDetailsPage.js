@@ -46,9 +46,15 @@ export default function MovieDetailsPage() {
   // Запоминаю с useRef локейшн, который был до перехода на карточку фильма,
   // что бы с помощью кнопки назад сразу вернуться на страницу поиска \ главную
   function goBack() {
-    // window.history.back();
-    const { pathname, search } = refLocation.current.state.from;
-    history.push(search ? pathname + search : pathname);
+    if (refLocation.current.state) {
+      const { pathname, search } = refLocation.current.state.from;
+      history.push(search ? pathname + search : pathname);
+    } else {
+      const path = refLocation.current.pathname.includes('movies')
+        ? '/movies'
+        : '/';
+      history.push(path);
+    }
   }
 
   function toggleModal() {

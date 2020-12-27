@@ -3,11 +3,13 @@
   flex-wrap: wrap;
   width: 100%;
   justify-content: flex-start;
+  box-sizing: border-box;
+  // padding: 15px 25px 30px 25px;
   border-top: 1px solid gray;
 
   div {
     max-width: 100%;
-    width: 100%;
+    box-sizing: border-box;
     padding: 10px;
     margin: 0 10px 0 10px;
 
@@ -29,4 +31,26 @@
   margin: 0 0 0 0;
   padding: 20px;
   text-align: center;
+}
+
+.content {
+  display: block;
+  max-width: 100%;
+  word-wrap: break-word;
+  padding: 0 10px 0 10px;
+}
+
+.author {
+  text-align: center;
+}
+
+.show-more {
+  display: inline;
+  color: #2196f3;
+  transition: all 250ms easy;
+
+  &:hover {
+    color: #cf1f1f;
+    cursor: pointer;
+  }
 }
