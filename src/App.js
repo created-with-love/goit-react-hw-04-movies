@@ -1,5 +1,6 @@
 import { Switch, Route } from 'react-router-dom';
 import React, { lazy, Suspense } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import Container from './components/Container';
 import Appbar from './components/Appbar';
@@ -19,6 +20,8 @@ const MovieDetailsPage = lazy(() =>
   ),
 );
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <>
@@ -27,7 +30,9 @@ function App() {
         <Suspense fallback={<Preloader />}>
           <Switch>
             <Route path="/" exact>
-              <HomePage />
+              <QueryClientProvider client={queryClient}>
+                <HomePage />
+              </QueryClientProvider>
             </Route>
 
             <Route path="/movies" exact>

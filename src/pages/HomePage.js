@@ -1,9 +1,10 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useQuery } from 'react-query';
 import * as MoviesAPI from '../services/movies-api';
 
 import Preloader from '../components/Preloader';
-import STATUS from '../services/Status';
+// import STATUS from '../services/Status';
 import NotFound from '../components/NotFound';
 
 const MoviesList = lazy(() =>
@@ -19,22 +20,28 @@ export default function HomePage() {
   const history = useHistory();
   const location = useLocation();
   const page = new URLSearchParams(location.search).get('page') ?? 1;
-  const [movies, setMovies] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
-  const [status, setStatus] = useState(STATUS.idle);
+  // const [movies, setMovies] = useState([]);
+  // const [totalPages, setTotalPages] = useState(0);
+  // const [status, setStatus] = useState(STATUS.idle);
 
-  useEffect(() => {
-    try {
-      MoviesAPI.fetchTrendingMoviesByPage(page).then(data => {
-        setStatus(STATUS.pending);
-        setMovies(data.results);
-        setTotalPages(data.total_pages);
-        setStatus(STATUS.fulfilled);
-      });
-    } catch {
-      setStatus(STATUS.rejected);
-    }
-  }, [page]);
+  const { data, isLoading, isError, isFetching } = useQuery(
+    ['movies', page],
+    () => MoviesAPI.fetchTrendingMoviesByPage(page),
+    { keepPreviousData: true },
+  );
+
+  // useEffect(() => {
+  //   try {
+  //     MoviesAPI.fetchTrendingMoviesByPage(page).then((data) => {
+  //       setStatus(STATUS.pending);
+  //       setMovies(data.results);
+  //       setTotalPages(data.total_pages);
+  //       setStatus(STATUS.fulfilled);
+  //     });
+  //   } catch {
+  //     setStatus(STATUS.rejected);
+  //   }
+  // }, [page]);
 
   const handleChange = (event, value) => {
     const options = {
@@ -47,7 +54,7 @@ export default function HomePage() {
     history.push({ ...location, search: `page=${value}` });
   };
 
-  if (status === STATUS.pending) {
+  if (isLoading || isFetching) {
     return (
       <>
         <Preloader />
@@ -55,24 +62,7 @@ export default function HomePage() {
     );
   }
 
-  if (status === STATUS.fulfilled) {
-    return (
-      <div>
-        <Suspense fallback={<Preloader />}>
-          <MoviesList movies={movies} url="" />
-
-          <PaginationList
-            movies={movies}
-            totalPages={totalPages}
-            page={Number(page)}
-            handleChange={handleChange}
-          />
-        </Suspense>
-      </div>
-    );
-  }
-
-  if (status === STATUS.rejected) {
+  if (isError) {
     return (
       <>
         <NotFound text={'Nothing was found, please try again'} />
@@ -80,5 +70,18 @@ export default function HomePage() {
     );
   }
 
-  return <></>;
+  return (
+    <div>
+      <Suspense fallback={<Preloader />}>
+        <MoviesList movies={data.results} url="" />
+
+        <PaginationList
+          movies={data.results}
+          totalPages={data.total_pages}
+          page={Number(page)}
+          handleChange={handleChange}
+        />
+      </Suspense>
+    </div>
+  );
 }

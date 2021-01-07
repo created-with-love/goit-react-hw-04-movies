@@ -1,8 +1,9 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.scss';
 import logo from '../../images/logo.jpg';
 
-export default function Navigation() {
+const Navigation = React.memo(() => {
   return (
     <nav className="navigation">
       <div className="nav-items">
@@ -22,4 +23,6 @@ export default function Navigation() {
       </div>
     </nav>
   );
-}
+});
+
+export default Navigation;

@@ -1,9 +1,12 @@
 import { PropTypes } from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import 'lazysizes';
+// import slugify from 'react-slugify';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import './MoviesList.scss';
 import image from '../../images/def-img.jpg';
+
+// const makeSlug = string => slugify(string, { lower: true });
 
 export default function MoviesList({ movies, url }) {
   const location = useLocation();

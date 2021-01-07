@@ -28,12 +28,13 @@ const Reviews = lazy(() =>
 
 export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
+  const [modal, setModal] = useState(false);
+
   const { movieId } = useParams();
   const { url, path } = useRouteMatch();
   const location = useLocation();
   const refLocation = useRef(location);
   const history = useHistory();
-  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     MoviesAPI.fetchMovieDetais(movieId).then(setMovie);
